@@ -2,7 +2,7 @@ FROM python:3.10.0
 
 WORKDIR /app
 
-COPY main.py requirements ./
+COPY main.py dnstlsgtw.py requirements ./
 	 
 RUN pip install --no-cache-dir -r requirements
 
