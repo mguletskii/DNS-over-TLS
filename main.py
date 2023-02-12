@@ -1,14 +1,18 @@
 import dnstlsgtw
 import socket, dns.query
 import threading
-import os
+import os, sys
 
-
-listen_addr = str(os.environ['LIST_HOST'])
-listen_port = int(os.environ['LIST_PORT'])
-
-host_name = str(os.environ['DNSTLS_HOST'])
-host_port = int(os.environ['DNSTLS_PORT'])
+if len(sys.argv) > 4:
+    listen_addr = sys.argv[1]
+    listen_port = int(sys.argv[2])
+    host_name = sys.argv[3]
+    host_port = int(sys.argv[4])
+else:
+    listen_addr = str(os.environ['LIST_HOST'])
+    listen_port = int(os.environ['LIST_PORT'])
+    host_name = str(os.environ['DNSTLS_HOST'])
+    host_port = int(os.environ['DNSTLS_PORT'])
 
 connection_threads = list()
 
