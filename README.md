@@ -50,3 +50,25 @@ ENTRYPOINT ["python","-u","./main.py"]
 EXPOSE 1853/udp
 ~~~
 
+# QA
+
+## Imagine this proxy being deployed in an infrastructure. What would be the security concerns you would raise?
+~~~
+Close 53 output port, for prevent all unprotected requests.
+Data validity. For increase security I would compare DNS records between 2 or more random selected servers.
+Use configured pod network (if it's work on the one pod) or configure service CIDR for one VPS.
+~~~
+
+## How would you integrate that solution in a distributed, microservices-oriented and containerized architecture?
+
+~~~
+This container is ephemeral.
+I would use docker registry or ECR to integrate with kubernetes or ECS.
+~~~
+
+## What other improvements do you think would be interesting to add to the project?
+
+~~~
+Add support of many DNSoverTLS servers, for increase the stability and security of service. 
+Add cache with configuring TTL.
+~~~
