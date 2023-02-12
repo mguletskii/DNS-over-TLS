@@ -1,13 +1,14 @@
 import dnstlsgtw
 import socket, dns.query
 import threading
+import os
 
 
-listen_addr = ''
-listen_port = 1853
+listen_addr = str(os.environ['LIST_HOST'])
+listen_port = int(os.environ['LIST_PORT'])
 
-host_name = '1.1.1.1'
-host_port = 853
+host_name = str(os.environ['DNSTLS_HOST'])
+host_port = int(os.environ['DNSTLS_PORT'])
 
 connection_threads = list()
 
