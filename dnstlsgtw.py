@@ -2,24 +2,37 @@ import dns.query, socket, ssl
 
 class dnstlsgtw:
  
-    def __init__(self, dns_host: str, dns_port: str, dnstls_host: str, dnstls_port: int):
-        self.dns_host = dns_host
-        self.dns_port = dns_port
+    def __init__(self, dnstls_host: str, dnstls_port: int, sock=socket.socket, recv_dns_data=(), dns_host ='', dns_port=853):
+        self.__sock = sock
         self.tls_host = dnstls_host
         self.tls_port = dnstls_port
         self.context_client = ssl.create_default_context()
-        self.__get_dnstls()
+        try:
+            if len(self.__sock.getsockname()) > 0:
+                self.__recv_dns_data = recv_dns_data
+                self.__get_dns_tls_exsock()
+            else:
+                self.dns_host = dns_host
+                self.dns_port = dns_port
+                self.__get_dnstls_single()
+        except:
+            exit()
 
-    def __get_dnstls(self):
+    def __get_dns_tls_exsock(self):
+        self.__connect_dnstls()
+        self.__send_dnstls()
+        self.__recv_dnstls()
+        self.__send_dns()
+        self.__close_dnstls()
+
+    def __get_dnstls_single(self):
         self.__binding_dns()
-        while True:
-            self.__recv_dns()
-            self.__connect_dnstls()
-            self.__send_dnstls()
-            self.__recv_dnstls()
-            self.__send_dns()
-            self.__close_dnstls()
-        self.__close_dns()
+        self.__recv_dns()
+        self.__connect_dnstls()
+        self.__send_dnstls()
+        self.__recv_dnstls()
+        self.__send_dns()
+        self.__close_dnstls()
 
     def __binding_dns(self):
         try:
