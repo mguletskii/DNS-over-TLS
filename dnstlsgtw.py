@@ -80,6 +80,7 @@ class dnstlsgtw:
 
     def __send_dns(self):
         try:
+            dns.query.send_udp(self.__sock, self.__recv_dnstls_data[0], self.__recv_dns_data[2])
         except Exception as e:
             print("ERROR! dnstlsgtw Sending DNS:", self.__recv_dns_data[2], " ", str(e))
 
