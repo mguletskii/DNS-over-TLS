@@ -1,8 +1,8 @@
 # DNS-over-TLS
 
-Gateway for converting DNS requests to DNS over TLS requests.
+Gateway for converting **DNS** requests to **DNS over TLS** requests.
 
-To build a container image, use a Dockerfile:
+To build a container image, use a **Dockerfile**:
 
 ~~~
 cd ~/
@@ -12,9 +12,9 @@ docker build -t dnstls:0.1 .
 docker run -d -p 1853:1853/udp dnstls:0.1
 ~~~
 
-You may configurate it using ENV variables or CMD arguments:
+You may configurate it using **ENV** variables or **CMD** arguments:
 
-CMD (Priority):
+## CMD (Priority):
 ~~~
 FROM python:3.10.0
 
@@ -30,7 +30,7 @@ CMD ["0.0.0.0","1853","1.1.1.1","853"]
 EXPOSE 1853/udp
 ~~~
 
-ENV:
+### ENV:
 ~~~
 FROM python:3.10.0
 
