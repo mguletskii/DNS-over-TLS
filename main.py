@@ -11,7 +11,7 @@ try:
     host_port = int(sys.argv[4])
 except:
     print("ERROR! In command line arguments!", sys.argv[1:])
-    exit()
+    exit(1)
 
 connection_threads = list()
 
@@ -19,7 +19,12 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, 0)
 sock.bind((listen_addr, listen_port))
 
 while True:
-    new_thread = threading.Thread(target=dnstlsgtw.dnstlsgtw, args=(host_name, host_port, sock, \
-        dns.query.receive_udp(sock)))
+    try:
+        new_thread = threading.Thread(target=dnstlsgtw.dnstlsgtw, args=(host_name, host_port, sock, \
+            dns.query.receive_udp(sock)))
+    except:
+        print("ERROR! Craeting new thread!")
+        exit(1)
+
     connection_threads.append(new_thread)
     new_thread.start()
