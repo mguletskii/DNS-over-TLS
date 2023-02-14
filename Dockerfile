@@ -1,4 +1,4 @@
-FROM python:3.10.0
+FROM python:3.7-alpine
 
 WORKDIR /app
 
@@ -6,11 +6,7 @@ COPY main.py dnstlsgtw.py requirements ./
 	 
 RUN pip install --no-cache-dir -r requirements
 
-ENV LIST_HOST=0.0.0.0 \
-    LIST_PORT=1853 \
-    DNSTLS_HOST=1.1.1.1 \
-    DNSTLS_PORT=853 
-
-ENTRYPOINT ["python","-u","./main.py"]
+ENTRYPOINT ["python","-u"]
+CMD ["main.py","0.0.0.0","1853","1.1.1.1","853"]
 
 EXPOSE 1853/udp
