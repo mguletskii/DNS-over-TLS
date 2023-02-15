@@ -1,32 +1,24 @@
 from dnstlsgtw import dnstlsgtw
 import socket, dns.query
 import threading
-import sys, logging
+from argparse import ArgumentParser
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+args_parser = ArgumentParser()
 
-try:
-    listen_addr = sys.argv[1]
-    listen_port = int(sys.argv[2])
-    host_name = sys.argv[3]
-    host_port = int(sys.argv[4])
-except:
-    logging.error(f'In command line arguments! Config:{sys.argv[1:]}')
-    exit(1)
+args_parser.add_argument('--address','-a',required=False, help='Local server address binding', default='0.0.0.0')
+args_parser.add_argument('--port','-p',required=True, help='Local server port', default=1853)
+args_parser.add_argument('--dnshost','-dh',required=False, help='DNS over TLS host', default='1.1.1.1')
+args_parser.add_argument('--dnsport','-dp',required=False, help='DNS over TLS port', default=853)
+
+args = args_parser.parse_args()
 
 connection_threads = list()
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, 0)
-sock.bind((listen_addr, listen_port))
+sock.bind((args.address, int(args.port)))
 
 while True:
-    try:
-        new_thread = threading.Thread(target=dnstlsgtw, args=(host_name, host_port, sock, \
-            dns.query.receive_udp(sock)))
-    except:
-        logging.error(f'Craeting new thread!')
-        exit(1)
-
+    new_thread = threading.Thread(target=dnstlsgtw.dnstlsgtw, args=(args.dnshost, int(args.dnsport), sock, \
+        dns.query.receive_udp(sock)))
     connection_threads.append(new_thread)
     new_thread.start()
