@@ -27,7 +27,7 @@ For testing multi connection feature, I used the simple **BASH** script.
 ```
 #!/bin/bash
 
-for i in {1..$3}
+for ((i=1; i<=$3; i++))
 do
     kdig -d $1 -p $2 aws.amazon.com &
     kdig -d $1 -p $2 google.com &
@@ -39,18 +39,18 @@ wait
 You may create this file, with his a couple commands:
 
 ```
-printf '#!/bin/bash' > ~/test1.sh
+printf '#!/bin/bash' > ~/dnstest.sh
 echo -e \
 "\n \n \
-for i in {1..\$3} \n \
+for ((i=1; i<=\$3; i++)) \n \
 do \n \
     kdig -d \$1 -p \$2 aws.amazon.com & \n \
     kdig -d \$1 -p \$2 google.com & \n \
 done \n \
 \n \
-wait" >> ~/test.sh
+wait" >> ~/dnstest.sh
 
-chmod +x ~/test.sh
+chmod +x ~/dnstest.sh
 ```
 
 For start test:
