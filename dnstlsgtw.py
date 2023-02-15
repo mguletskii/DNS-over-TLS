@@ -98,3 +98,7 @@ class dnstlsgtw:
         except Exception as e:
             logging.error(f'Closing DNSTLS: {(self.tls_host, self.tls_port)} Error: {str(e)}')
             exit(1)
+
+
+if __name__ == '__main__':
+    print(f'Import this using:\nimport dnstlsgtw\nor\nfrom dnstlsgtw import dnstlsgtw')
