@@ -1,4 +1,5 @@
 import dns.query, socket, ssl
+import logging
 
 class dnstlsgtw:
  
@@ -38,21 +39,21 @@ class dnstlsgtw:
             self.__sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, 0)
             self.__sock.bind((self.dns_host, self.dns_port))
         except Exception as e:
-            print("ERROR! dnstlsgtw Connecting DNS:", str(e))
+            logging.error(f'Connecting DNS: {str(e)}')
             exit(1)
 
     def __close_dns(self):
         try:
             self.__sock.close()
         except Exception as e:
-            print("ERROR! dnstlsgtw Closing DNS:", (self.dns_host, self.dns_port), " ", str(e))
+            logging.error(f'Closing DNS: {(self.dns_host, self.dns_port)} Error: {str(e)}')
             exit(1)
     
     def __recv_dns(self):
         try:
             self.__recv_dns_data = dns.query.receive_udp(self.__sock)
         except Exception as e:
-            print("ERROR! dnstlsgtw Receaving:", str(e))
+            logging.error(f'Receaving: {str(e)}')
             exit(1)
 
     def __connect_dnstls(self):
@@ -62,10 +63,10 @@ class dnstlsgtw:
             try:
                 self.__sock_tls.connect((self.tls_host, self.tls_port))
             except Exception as e:
-                print("ERROR! dnstlsgtw Connection to TLS host:", (self.tls_host, self.tls_port), " ", str(e))
+                logging.error(f'Connection to TLS host: {(self.tls_host, self.tls_port)} Error: {str(e)}')
                 exit(1)
         except Exception as e:
-            print("ERROR! dnstlsgtw Creating TLS socket:", str(e))
+            logging.error(f'Creating TLS socket: {str(e)}')
             exit(1)
 
     
@@ -73,7 +74,7 @@ class dnstlsgtw:
         try:
             dns.query.send_tcp(self.__sock_tls, self.__recv_dns_data[0])
         except Exception as e:
-            print("ERROR! dnstlsgtw Sending to DNSTLS:", (self.tls_host, self.tls_port), " ", str(e))
+            logging.error(f'Sending to DNSTLS: {(self.tls_host, self.tls_port)} Error: {str(e)}')
             exit(1)
 
 
@@ -81,19 +82,19 @@ class dnstlsgtw:
         try:
             self.__recv_dnstls_data = dns.query.receive_tcp(self.__sock_tls)
         except Exception as e:
-            print("ERROR! dnstlsgtw Receaving to DNSTLS:", (self.tls_host, self.tls_port), " ", str(e))
+            logging.error(f'Receaving to DNSTLS: {(self.tls_host, self.tls_port)} Error: {str(e)}')
             exit(1)
 
     def __send_dns(self):
         try:
             dns.query.send_udp(self.__sock, self.__recv_dnstls_data[0], self.__recv_dns_data[2])
         except Exception as e:
-            print("ERROR! dnstlsgtw Sending DNS:", self.__recv_dns_data[2], " ", str(e))
+            logging.error(f'Sending DNS: {self.__recv_dns_data[2]} Error: {str(e)}')
             exit(1)
 
     def __close_dnstls(self):
         try:
             self.__sock_tls.close()
         except Exception as e:
-            print("ERROR! dnstlsgtw Closing DNSTLS:", (self.tls_host, self.tls_port), " ", str(e))
+            logging.error(f'Closing DNSTLS: {(self.tls_host, self.tls_port)} Error: {str(e)}')
             exit(1)
