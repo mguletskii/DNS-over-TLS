@@ -13,7 +13,12 @@ cd ~/
 git clone https://github.com/mguletckii/DNS-over-TLS-Challenge.git
 cd ~/DNS-over-TLS-Challenge/
 docker build -t dnstls:0.1 .
-docker run -d -p 1853:1853/udp dnstls:0.1
+docker run -d -p 1853:1853/udp dnstls
+```
+
+Or you may use docker hub image:
+```
+docker run -d -p 1853:1853/udp mguletskii/dnstls
 ```
 
 For testing I used kdig util from knot-dnsutils.
