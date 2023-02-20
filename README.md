@@ -1,10 +1,20 @@
 # DNS-over-TLS
 
+## Running
+
 Gateway for converting **DNS** requests to **DNS over TLS** requests.
 
 I used dnspython library. Application just redirects the queries between **DNS** and **DNS over TLS** servers.
 Any query start a new thread and call **dnstlsgtw** class instance.
 
+To run container, use a **Compose**:
+
+```
+cd ~/
+git clone https://github.com/mguletckii/DNS-over-TLS-Challenge.git
+cd ~/DNS-over-TLS-Challenge/
+docker compose up -d
+```
 
 To build a container image, use a **Dockerfile**:
 
@@ -12,16 +22,22 @@ To build a container image, use a **Dockerfile**:
 cd ~/
 git clone https://github.com/mguletckii/DNS-over-TLS-Challenge.git
 cd ~/DNS-over-TLS-Challenge/
-docker build -t dnstls:0.1 .
-docker run -d -p 1853:1853/udp dnstls
+docker build -t dnstls .
 ```
 
-Or you may use docker hub image:
+Run container, from **image**:
+Container from **Dockerfile** build image:
+```
+docker run -d -p 1853:1853/udp dnstls
+```
+Or you may use **docker hub** image:
 ```
 docker run -d -p 1853:1853/udp mguletskii/dnstls
 ```
 
-For testing I used kdig util from knot-dnsutils.
+## Testing
+
+For testing I used **kdig** util from knot-dnsutils.
 
 ```
 sudo apt install knot-dnsutils
