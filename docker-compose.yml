@@ -1,0 +1,6 @@
+version: "3.9"
+services:
+  dnstls:
+    build: .
+    ports:
+      - "1853:1853/udp"
