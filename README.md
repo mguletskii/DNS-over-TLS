@@ -37,12 +37,6 @@ docker run -d -p 1853:1853/udp mguletskii/dnstls
 
 ## Testing
 
-For testing I used **kdig** util from knot-dnsutils.
-
-```
-sudo apt install knot-dnsutils
-```
-
 For testing multi connection feature, I used the simple **BASH** script.
 
 ```
@@ -50,8 +44,8 @@ For testing multi connection feature, I used the simple **BASH** script.
 
 for ((i=1; i<=$3; i++))
 do
-    kdig -d $1 -p $2 aws.amazon.com &
-    kdig -d $1 -p $2 google.com &
+    dig -d $1 -p $2 aws.amazon.com &
+    dig -d $1 -p $2 google.com &
 done
 
 wait
@@ -65,8 +59,8 @@ echo -e \
 "\n \n \
 for ((i=1; i<=\$3; i++)) \n \
 do \n \
-    kdig -d \$1 -p \$2 aws.amazon.com & \n \
-    kdig -d \$1 -p \$2 google.com & \n \
+    dig -d \$1 -p \$2 aws.amazon.com & \n \
+    dig -d \$1 -p \$2 google.com & \n \
 done \n \
 \n \
 wait" >> ~/dnstest.sh
@@ -77,7 +71,7 @@ chmod +x ~/dnstest.sh
 For start test:
 
 ```
-~/test1.sh 172.25.192.1 1853 2
+~/dnstest.sh 172.25.192.1 1853 2
 ```
 
 Where:
