@@ -1,0 +1,34 @@
+name: Create and publish a Docker image
+
+env:
+  NAMESPACE: ${{ secrets.HUB_LOGIN }}
+  IMAGE_NAME: dnstls
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+
+  push_to_hub:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Log in to the Container registry
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.HUB_LOGIN }}
+        password: ${{ secrets.HUB_TOKEN }}
+      
+    - name: Build and push
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: ${{ env.NAMESPACE }}/${{ env.IMAGE_NAME }}
