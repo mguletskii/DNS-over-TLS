@@ -44,8 +44,8 @@ For testing multi connection feature, I used the simple **BASH** script.
 
 for ((i=1; i<=$3; i++))
 do
-    dig -d $1 -p $2 aws.amazon.com &
-    dig -d $1 -p $2 google.com &
+    dig @$1 -p $2 aws.amazon.com &
+    dig @$1 -p $2 google.com &
 done
 
 wait
@@ -59,8 +59,8 @@ echo -e \
 "\n \n \
 for ((i=1; i<=\$3; i++)) \n \
 do \n \
-    dig -d \$1 -p \$2 aws.amazon.com & \n \
-    dig -d \$1 -p \$2 google.com & \n \
+    dig @\$1 -p \$2 aws.amazon.com & \n \
+    dig @\$1 -p \$2 google.com & \n \
 done \n \
 \n \
 wait" >> ~/dnstest.sh
