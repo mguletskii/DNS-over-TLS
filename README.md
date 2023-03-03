@@ -67,8 +67,8 @@ echo -e \
 "\n \n \
 for ((i=1; i<=\$3; i++)) \n \
 do \n \
-    dig -d \$1 -p \$2 aws.amazon.com & \n \
-    dig -d \$1 -p \$2 google.com & \n \
+    kdig -d \$1 -p \$2 aws.amazon.com & \n \
+    kdig -d \$1 -p \$2 google.com & \n \
 done \n \
 \n \
 wait" >> ~/dnstest.sh
