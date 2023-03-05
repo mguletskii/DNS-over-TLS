@@ -11,8 +11,8 @@ To run container, use a **Compose**:
 
 ```
 cd ~/
-git clone https://github.com/mguletckii/DNS-over-TLS-Challenge.git
-cd ~/DNS-over-TLS-Challenge/
+git clone https://github.com/mguletckii/DNS-over-TLS.git
+cd ~/DNS-over-TLS/
 docker compose up -d
 ```
 
@@ -20,8 +20,8 @@ To build a container image, use a **Dockerfile**:
 
 ```
 cd ~/
-git clone https://github.com/mguletckii/DNS-over-TLS-Challenge.git
-cd ~/DNS-over-TLS-Challenge/
+git clone https://github.com/mguletckii/DNS-over-TLS.git
+cd ~/DNS-over-TLS/
 docker build -t dnstls .
 ```
 
