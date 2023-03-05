@@ -40,7 +40,7 @@ docker run -d -p 1853:1853/udp mguletskii/dnstls
 For basic test you may use **dig**:
 
 ```
-dig @172.25.192.1 -p1853 google.com
+dig @172.25.192.2 -p1853 google.com
 ```
 
 For multi connection testing I used **kdig** util from knot-dnsutils.
@@ -79,12 +79,12 @@ chmod +x ~/dnstest.sh
 For start test:
 
 ```
-~/dnstest.sh 172.25.192.1 1853 2
+~/dnstest.sh 172.25.192.2 1853 2
 ```
 
 Where:
 ```
-172.25.192.1 - Server IP where work application
+172.25.192.2 - Server IP where work application
 1853 - application port
 2 - how many loops will be done
 ```
