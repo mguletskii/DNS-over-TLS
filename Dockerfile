@@ -6,9 +6,9 @@ COPY requirements ./
 	 
 RUN pip install --no-cache-dir -r requirements
 
-COPY main.py dnstlsgtw.py ./
-
 EXPOSE 1853/udp
+
+COPY main.py dnstlsgtw.py ./
 
 ENTRYPOINT ["python"]
 
