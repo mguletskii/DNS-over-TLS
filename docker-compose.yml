@@ -5,7 +5,8 @@ services:
     ports:
       - "1853:1853/udp"
     networks:
-      - host_net
+      host_net:
+        ipv4_address: "172.25.192.2"
 networks:
   host_net:
     ipam:
