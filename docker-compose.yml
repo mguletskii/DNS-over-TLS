@@ -3,7 +3,7 @@ services:
   dnstls:
     image: mguletskii/dnstls
     ports:
-      - "1853:1853/udp"
+      - "1853:53/udp"
     networks:
       host_net:
         ipv4_address: "172.25.192.2"
