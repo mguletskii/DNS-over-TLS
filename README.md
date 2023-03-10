@@ -25,14 +25,21 @@ cd ~/DNS-over-TLS/
 docker build -t dnstls .
 ```
 
+**ENV** Variables:
+```
+LIST_HOST - Local server address binding (0.0.0.0 by default)
+DNSTLS_HOST - DNS over TLS server host (1.1.1.1 by default)
+DNSTLS_PORT - DNS over TLS server port (853 by default)
+```
+
 Run container, from **image**:
 Container from **Dockerfile** build image:
 ```
-docker run -d -p 1853:1853/udp dnstls
+docker run -d -p 1853:53/udp dnstls
 ```
 Or you may use **docker hub** image:
 ```
-docker run -d -p 1853:1853/udp mguletskii/dnstls
+docker run -d -p 1853:53/udp mguletskii/dnstls
 ```
 
 ## Testing
