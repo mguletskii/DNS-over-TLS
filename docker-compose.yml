@@ -1,9 +1,14 @@
 version: "3.9"
 services:
   dnstls:
-    image: mguletskii/dnstls
+    #image: mguletskii/dnstls
+    build: .
+    environment:
+      - LIST_HOST=0.0.0.0
+      - DNSTLS_HOST=1.1.1.1
+      - DNSTLS_PORT=853
     ports:
-      - "1853:1853/udp"
+      - "1853:53/udp"
     networks:
       host_net:
         ipv4_address: "172.25.192.2"
