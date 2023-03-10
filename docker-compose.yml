@@ -1,8 +1,7 @@
 version: "3.9"
 services:
   dnstls:
-    #image: mguletskii/dnstls
-    build: .
+    image: mguletskii/dnstls
     environment:
       - LIST_HOST=0.0.0.0
       - DNSTLS_HOST=1.1.1.1
