@@ -8,12 +8,3 @@ services:
       - DNSTLS_PORT=853
     ports:
       - "1853:53/udp"
-    networks:
-      host_net:
-        ipv4_address: "172.25.192.2"
-networks:
-  host_net:
-    ipam:
-      driver: default
-      config:
-        - subnet: "172.25.192.0/24"
